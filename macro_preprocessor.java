@@ -13,10 +13,10 @@ public class macro_preprocessor {
     public static BufferedWriter mf;
 
     public static void main(String args[]) throws IOException {
-        ip = new BufferedReader(new FileReader("C:\\Users\\Isha\\Documents\\Inputmacro.txt"));
-        BufferedWriter icw = new BufferedWriter(new FileWriter("C:\\Users\\Isha\\Documents\\ICmacro.txt", true));
-        op = new BufferedReader(new FileReader("C:\\Users\\Isha\\Documents\\ICmacro.txt"));
-        mf = new BufferedWriter(new FileWriter("C:\\Users\\Isha\\Documents\\OPmacro.txt", true));
+        ip = new BufferedReader(new FileReader("Inputmacro.txt"));
+        BufferedWriter icw = new BufferedWriter(new FileWriter("ICmacro.txt", true));
+        op = new BufferedReader(new FileReader("ICmacro.txt"));
+        mf = new BufferedWriter(new FileWriter("OPmacro.txt", true));
         MDT = new String[15][3];
         MNT = new String[15][2];
         ALA = new String[15][4];
