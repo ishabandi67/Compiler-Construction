@@ -371,3 +371,55 @@ public class macro_preprocessor {
         return flag;
     }
 }
+
+
+/* INPUT FILE: Inputmacro.txt
+MACRO
+XYZ &A
+ST 1,&A
+MEND
+MACRO
+&LABEL MIT &Z,&W=DATA2
+LA 1,&Z
+A 1,&W
+ST 1,&Z
+MEND
+START
+USING *,15
+L 2,DATA1
+LOOP1 MIT &Z=DATA1
+ST 1,DATA2
+XYZ DATA1
+JNE LOOP1
+DATA1 DC F'15'
+DATA2 DC F'25'
+END
+*/
+
+/* Intermediate Code Generated: ICmacro.txt
+START
+USING *,15
+L 2,DATA1
+LOOP1 MIT &Z=DATA1
+ST 1,DATA2
+XYZ DATA1
+JNE LOOP1
+DATA1 DC F'15'
+DATA2 DC F'25'
+END
+*/
+
+/*Final Output: OPmacro.txt
+START
+USING *,15
+L 2,DATA1
+LA 1,DATA1
+A 1,DATA2
+ST 1,DATA1
+ST 1,DATA2
+ST 1,DATA1
+JNE LOOP1
+DATA1 DC F'15'
+DATA2 DC F'25'
+END
+*/
