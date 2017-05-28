@@ -1,0 +1,103 @@
+dep=[]
+inexp=[]
+exp=[]
+
+op = open('coptop.txt','w')
+ 
+for q in [1,2]:
+    ip = open('coptin.txt','r+')
+    ip = list(ip)
+    for line in ip:
+        n = ip.index(line)
+        line = line.strip()
+        line = line.replace('\t','')
+        line = line.replace(' ','')
+        if 'for' in line:
+            parts = line.split(';')
+            for x in parts:
+                x = x.replace(' ','')
+                if '=' in x:
+                    ind=x.index('=')
+                    if x[ind-1] not in dep:
+                        dep.append(x[ind-1])
+
+        elif '{' in line or '}' in line:
+            continue
+        else:
+            l,r = line.split('=')
+            if '+' in l or '-' in l or '/' in l or '*' in l:
+                s = l[:-1]
+                s = s + '='
+                s = s + l
+                s = s + r
+                line =s
+               
+            l,r = line.split('=')
+            for x in r:
+                if x in dep and l not in dep:
+                    dep.append(l)
+                elif x==l and l not in dep:
+                    dep.append(l)
+            s=''
+            
+print 'Dependent Variables are : ',
+print dep
+
+ip1 = open('coptin.txt','r+')
+flag=0
+for line in ip1:
+    if 'for' in line:
+            exp.append(line)
+    elif '{' in line or '}' in line:
+            exp.append(line)
+    else:
+        for x in line:
+            flag = 0
+            if x in dep:
+                flag = 1
+                break
+            elif x not in dep:
+                flag =2
+            
+            
+         
+        if flag == 1:
+            exp.append(line)
+        elif flag==2:
+            inexp.append(line)
+        
+ip1.close()
+
+for x in inexp:
+    op.write(x)
+    op.write('\n')
+
+for y in exp:
+    op.write(y)
+    op.write('\n')
+        
+
+op.close()
+op1 = open('coptop.txt','r')
+for line in op1:
+    print line,
+       
+/*Input:coptin.txt
+for(i=0;i<5;i++)
+{
+b=3
+c=1
+a=b+c
+d=i
+e+=b
+h=b+i 
+g=(2+3)
+}
+*/
+            
+    
+    
+    
+    
+
+
